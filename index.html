@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=viewport-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Notekeeper</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="header">
-        Notekeeper
+        <h1>Notekeeper</h1>
     </div>
     <form class="login">
         <div class="username">
@@ -24,13 +27,18 @@
 
         </div>
         <div class="main-content">
+            <a class="new">New Note</a>
             <div class="creation">
-                <form class = "note-form">
-                    <label for="title">Title</label>
-                    <input id ="title" class = "title" name="title">
-                    
-                    <input class = "content" name="content" required>
-                    <input class = "tags" name="tags">
+                <form class="note-form">
+                    <div class="">
+                        <input id="title" class="title" name="title" placeholder="Title">
+                    </div>
+                    <div class="">
+                        <input class="content" name="content" placeholder="Content" required>
+                    </div>
+                    <div class="">
+                        <input class="tags" name="tags" placeholder="Tags, Go, Here">
+                    </div>
                     <button type="submit" name="note">Post</button>
                 </form>
             </div>
@@ -40,4 +48,5 @@
         </div>
     </div>
 </body>
+
 </html>
