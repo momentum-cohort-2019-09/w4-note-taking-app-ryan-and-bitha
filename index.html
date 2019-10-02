@@ -4,19 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Notes</title>
+    <title>Notekeeper</title>
 </head>
 <body>
     <div class="header">
-
+        Notekeeper
     </div>
+    <form class="login">
+        <div class="username">
+            <input id="username" name="username" />
+        </div>
+        <div class="password">
+            <input id="password" name="password" />
+        </div>
+        <button type="submit" name="login">Log In</button>
+    </form>
     <div class="main-wrap">
         <div class="sidebar">
 
         </div>
         <div class="main-content">
             <div class="creation">
-
+                <form class = "note-form">
+                    <label for="title">Title</label>
+                    <input id ="title" class = "title" name="title">
+                    
+                    <input class = "content" name="content" required>
+                    <input class = "tags" name="tags">
+                    <button type="submit" name="note">Post</button>
+                </form>
             </div>
             <div class="past-notes">
 
