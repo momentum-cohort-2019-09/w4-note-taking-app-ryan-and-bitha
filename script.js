@@ -1,8 +1,8 @@
 const app = {
     "data": {
         "credentials": {
-            username: 'rbproject',
-            password: 'test'
+            username: sessionStorage.username,
+            password: sessionStorage.password
         },
         "notes": []
     },
@@ -26,12 +26,14 @@ const app = {
         .then(response => {
             if(response.ok) {
                 this.setCredentials(username, password)
+                this.render()
             }
         })
     },
 
     "render": function(){
-        
+        document.querySelector(".login-container").classList.add('hidden')
+        document.querySelector(".main-wrap").classList.remove('hidden')
     },
 
     "getNotes": function () {
@@ -47,7 +49,16 @@ const app = {
             }
             console.log(this.data.notes)
         })
+    },
+    "main": () => {
+        let login = document.querySelector(".login")
+        login.addEventListener('submit', function(event){
+            event.preventDefault()
+            console.log('submit!')
+            let loginData = new FormData(login)
+            app.login(loginData.get('username'),loginData.get('password'))
+        })
     }
 }
-
+app.main()
 app.getNotes()
