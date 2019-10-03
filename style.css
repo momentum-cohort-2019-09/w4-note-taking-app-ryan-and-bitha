@@ -21,6 +21,7 @@ form{
     margin:0 auto;
 }
 .sidebar{
+    height:90vh;
     max-width:20vw;
     background:lightblue;
     flex: 1 1 0;
@@ -30,6 +31,7 @@ form{
 .main-content{
     max-width:70vw;
     flex:1 1 0;
+    padding:1rem 1rem;
 }
 .content{
     resize:none;
