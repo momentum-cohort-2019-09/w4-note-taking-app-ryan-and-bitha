@@ -50,9 +50,9 @@ const app = {
                     this.data.notes.push(note)
                 }
                 console.log(this.data.notes)
-                const pastNotes = document.querySelector('.notes')
+                const noteDiv = document.querySelector('.note-wrapper')
                 for (let note of this.data.notes) {
-                    pastNotes.innerHTML = pastNotes.innerHTML + `<div class="past-notes" style="border: thin solid grey"><h4>${note.title}</h4><br>${note.text}</div>`
+                    noteDiv.innerHTML += `<div class="past-notes"><h4>${note.title}</h4><br>${note.text}</div>`
 
                 }
             })
