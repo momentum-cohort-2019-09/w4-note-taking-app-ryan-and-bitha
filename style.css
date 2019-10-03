@@ -14,6 +14,9 @@ body{
 form{
     margin:1rem auto 2rem;
 }
+.password{
+    margin-left:4px;
+}
 .main-wrap{
     width:90vw;
     display:flex;
@@ -32,4 +35,11 @@ form{
 }
 .hidden{
     display:none;
+}
+.login-container{
+    margin:0 auto;
+    width:25vw;
+}
+.content{
+    margin:.5rem 0 .5rem;
 }
