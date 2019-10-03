@@ -51,10 +51,12 @@ const app = {
         })
     },
     "main": () => {
+        if(app.data.credentials.username){
+            app.render()
+        }
         let login = document.querySelector(".login")
         login.addEventListener('submit', function(event){
             event.preventDefault()
-            console.log('submit!')
             let loginData = new FormData(login)
             app.login(loginData.get('username'),loginData.get('password'))
         })
