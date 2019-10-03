@@ -4,11 +4,11 @@ const app = {
             username: 'rbproject',
             password: 'test'
         },
-        "notes":[]
+        "notes": []
     },
-    "basicAuthCreds": function(username, password) {
-    return 'Basic ' + btoa(`${username}:${password}`)
-}
+    "basicAuthCreds": function (username, password) {
+        return 'Basic ' + btoa(`${username}:${password}`)
+    }
 }
 
 
@@ -27,7 +27,11 @@ fetch('https://notes-api.glitch.me/api/notes', {
     .then(response => response.json())
     .then(data => {
         const pastNotes = document.querySelector('.past-notes')
-        console.log(data['notes'][0].text)
-        pastNotes.innerText = data['notes'][0].text
+        // console.log(data['notes'][0].text)
+
+        for (let note of data.notes) {
+            console.log(note.text)
+            pastNotes.innerText = pastNotes.innerText + note.title
+        }
     }
     )
