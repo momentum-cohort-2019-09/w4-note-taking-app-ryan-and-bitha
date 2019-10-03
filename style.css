@@ -47,3 +47,20 @@ label {
 .creation div {
 	margin-bottom: .5rem;
 }
+.past-notes {
+	width: 240px;
+	height: 156px;
+	margin-right: 20px;
+	margin-bottom: 30px;
+	border-radius: 15px;
+	text-align: center;
+	padding: 20px;
+	background-color: rgb(255, 248, 248);
+}
+.notes {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	padding-left: 20px;
+}
