@@ -15,6 +15,7 @@ fetch('https://notes-api.glitch.me/api/notes', {
     .then(response => response.json())
     .then(data => {
         const pastNotes = document.querySelector('.past-notes')
-        console.log(data[1])
+        console.log(data['notes'][0].text)
+        pastNotes.innerText = data['notes'][0].text
     }
     )
