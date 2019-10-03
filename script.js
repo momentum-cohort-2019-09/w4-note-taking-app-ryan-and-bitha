@@ -52,7 +52,7 @@ const app = {
                 console.log(this.data.notes)
                 const noteDiv = document.querySelector('.note-wrapper')
                 for (let note of this.data.notes) {
-                    noteDiv.innerHTML += `<div class="past-notes"><h4>${note.title}</h4><br>${note.text}</div>`
+                    noteDiv.innerHTML += `<div class="past-notes"><h4>${note.title}</h4><p>${note.text}</p></div>`
 
                 }
             })
