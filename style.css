@@ -31,7 +31,7 @@ form {
 .main-content {
 	max-width: 70vw;
     flex: 1 1 0;
-    padding:1rem 1rem;
+    padding:1rem 1rem 0;
 }
 .content {
 	resize: none;
@@ -52,7 +52,7 @@ label {
 .past-notes {
 	width: 240px;
     height: 156px;
-    margin:15px 15px;
+    margin:15px 15px 0;
 	text-align: center;
 	padding: 20px;
 	background-color: rgb(255, 248, 248);
