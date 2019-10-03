@@ -83,4 +83,3 @@ app.getNotes()
     }
 }
 app.main()
->>>>>>> 40e85bda99da20dd89a6a506ee51c9c019b66b5d
