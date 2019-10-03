@@ -38,6 +38,7 @@ const app = {
     },
 
     "getNotes": function () {
+        this.data.notes=[]
         fetch('https://notes-api.glitch.me/api/notes', {
             headers: {
                 'Authorization': this.basicAuthCreds(this.data.credentials)
