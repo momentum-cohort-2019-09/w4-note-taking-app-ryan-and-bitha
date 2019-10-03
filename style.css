@@ -15,9 +15,6 @@ body{
 form{
     margin:1rem auto 2rem;
 }
-.password{
-    margin-left:4px;
-}
 .main-wrap{
     width:90vw;
     display:flex;
@@ -34,6 +31,9 @@ form{
     max-width:70vw;
     flex:1 1 0;
 }
+.content{
+    resize:none;
+}
 .hidden{
     display:none;
 }
@@ -41,6 +41,9 @@ form{
     margin:0 auto;
     width:30vw;
 }
-.content{
-    margin:.5rem 0 .5rem;
+label{
+    display:block;
+}
+.creation div{
+    margin-bottom:.5rem;
 }
