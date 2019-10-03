@@ -9,6 +9,30 @@ const app = {
     "basicAuthCreds": function (credentials) {
         return 'Basic ' + btoa(`${credentials.username}:${credentials.password}`)
     },
+    "setCredentials": function(username, password){
+        this.data.credentials = {
+            "username": username,
+            "password": password
+        }
+        sessionStorage.setItem('username',username)
+        sessionStorage.setItem('password',password)
+    },
+    "login": function (username, password){
+        fetch('https://notes-api.glitch.me/api/notes', {
+            headers:{
+                'Authorization': 'Basic '+ btoa(`${username}:${password}`)
+            }
+        })
+        .then(response => {
+            if(response.ok) {
+                this.setCredentials(username, password)
+            }
+        })
+    },
+
+    "render": function(){
+
+    },
 
     "getNotes": function () {
         fetch('https://notes-api.glitch.me/api/notes', {
