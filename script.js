@@ -1,15 +1,28 @@
+const app = {
+    "data": {
+        "credentials": {
+            username: 'rbproject',
+            password: 'test'
+        },
+        "notes":[]
+    },
+    "basicAuthCreds": function(username, password) {
+    return 'Basic ' + btoa(`${username}:${password}`)
+}
+}
+
+
+
 
 let credentials = {
     username: 'rbproject',
     password: 'test'
 }
-function basicAuthCreds(username, password) {
-    return 'Basic ' + btoa(`${username}:${password}`)
-}
+
 
 fetch('https://notes-api.glitch.me/api/notes', {
     headers: {
-        'Authorization': basicAuthCreds(credentials.username, credentials.password)
+        'Authorization': app.basicAuthCreds(app.data.credentials.username, app.data.credentials.password)
     }
 })
     .then(response => response.json())
