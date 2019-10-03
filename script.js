@@ -26,6 +26,7 @@ const app = {
         .then(response => {
             if(response.ok) {
                 this.setCredentials(username, password)
+                this.getNotes()
                 this.render()
             }
         })
@@ -52,6 +53,7 @@ const app = {
     },
     "main": () => {
         if(app.data.credentials.username){
+            app.getNotes()
             app.render()
         }
         let login = document.querySelector(".login")
@@ -63,4 +65,3 @@ const app = {
     }
 }
 app.main()
-app.getNotes()
