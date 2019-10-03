@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=viewport-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
     <title>Notekeeper</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
     <div class="header">
         <h1>Notekeeper</h1>
     </div>
@@ -29,25 +32,22 @@
     <div class="main-wrap">
         <div class="sidebar">
 
-        </div>
-        <div class="main-content">
-            <a class="new">New Note</a>
-            <div class="creation">
-                <form class="note-form">
-                    <div class="">
-                        <input id="title" class="title" name="title" placeholder="Title">
-                    </div>
-                    <div class="">
-                        <input class="content" name="content" placeholder="Content" required>
-                    </div>
-                    <div class="">
-                        <input class="tags" name="tags" placeholder="Tags, Go, Here">
-                    </div>
-                    <button type="submit" name="note">Post</button>
-                </form>
             </div>
-            <div class="past-notes">
+            <div class="main-content">
+                <a class="new">New Note</a>
+                <div class="creation">
+                    <form class="note-form">
+                        <label for="title">Title</label>
+                        <input id="title" class="title" name="title">
 
+                        <input class="content" name="content" required>
+                        <input class="tags" name="tags">
+                        <button type="submit" name="note">Post</button>
+                    </form>
+                </div>
+                <div class="past-notes">
+
+                </div>
             </div>
         </div>
     </div>
