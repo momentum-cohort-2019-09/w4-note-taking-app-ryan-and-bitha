@@ -9,30 +9,30 @@ const app = {
     "basicAuthCreds": function (credentials) {
         return 'Basic ' + btoa(`${credentials.username}:${credentials.password}`)
     },
-    "setCredentials": function(username, password){
+    "setCredentials": function (username, password) {
         this.data.credentials = {
             "username": username,
             "password": password
         }
-        sessionStorage.setItem('username',username)
-        sessionStorage.setItem('password',password)
+        sessionStorage.setItem('username', username)
+        sessionStorage.setItem('password', password)
     },
-    "login": function (username, password){
+    "login": function (username, password) {
         fetch('https://notes-api.glitch.me/api/notes', {
-            headers:{
-                'Authorization': 'Basic '+ btoa(`${username}:${password}`)
+            headers: {
+                'Authorization': 'Basic ' + btoa(`${username}:${password}`)
             }
         })
-        .then(response => {
-            if(response.ok) {
-                this.setCredentials(username, password)
-                this.getNotes()
-                this.render()
-            }
-        })
+            .then(response => {
+                if (response.ok) {
+                    this.setCredentials(username, password)
+                    this.getNotes()
+                    this.render()
+                }
+            })
     },
 
-    "render": function(){
+    "render": function () {
         document.querySelector(".login-container").classList.add('hidden')
         document.querySelector(".main-wrap").classList.remove('hidden')
     },
@@ -55,30 +55,17 @@ const app = {
 
                 }
             })
-    }
-}
-
-app.getNotes()
-
-// console.log(data['notes'][0].text)
-        .then(response => response.json())
-        .then(data => {
-            for (let note of data.notes){
-                this.data.notes.push(note)
-            }
-            console.log(this.data.notes)
-        })
     },
     "main": () => {
-        if(app.data.credentials.username){
+        if (app.data.credentials.username) {
             app.getNotes()
             app.render()
         }
         let login = document.querySelector(".login")
-        login.addEventListener('submit', function(event){
+        login.addEventListener('submit', function (event) {
             event.preventDefault()
             let loginData = new FormData(login)
-            app.login(loginData.get('username'),loginData.get('password'))
+            app.login(loginData.get('username'), loginData.get('password'))
         })
     }
 }

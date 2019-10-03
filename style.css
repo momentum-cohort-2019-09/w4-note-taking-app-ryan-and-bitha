@@ -21,6 +21,7 @@ form {
 	margin: 0 auto;
 }
 .sidebar {
+    height:90vh;
 	max-width: 20vw;
 	background: lightblue;
 	flex: 1 1 0;
