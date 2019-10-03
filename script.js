@@ -43,7 +43,6 @@ const app = {
                 'Authorization': this.basicAuthCreds(this.data.credentials)
             }
         })
-<<<<<<< HEAD
             .then(response => response.json())
             .then(data => {
                 for (let note of data.notes) {
@@ -62,7 +61,6 @@ const app = {
 app.getNotes()
 
 // console.log(data['notes'][0].text)
-=======
         .then(response => response.json())
         .then(data => {
             for (let note of data.notes){
