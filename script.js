@@ -19,7 +19,6 @@ let credentials = {
     password: 'test'
 }
 
-
 fetch('https://notes-api.glitch.me/api/notes', {
     headers: {
         'Authorization': app.basicAuthCreds(app.data.credentials.username, app.data.credentials.password)
