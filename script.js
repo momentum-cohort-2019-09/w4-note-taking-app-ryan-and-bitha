@@ -37,7 +37,6 @@ const app = {
         document.querySelector(".login-container").classList.add('hidden')
         document.querySelector(".main-wrap").classList.remove('hidden')
     },
-
     "getNotes": function () {
         this.data.notes = []
         fetch('https://notes-api.glitch.me/api/notes', {
@@ -51,24 +50,25 @@ const app = {
                 this.data.notes.push(note)
             }
             this.displayAllNotes()
-        })
-    },
+            })
+        },
     "displayAllNotes": () => {
-        const noteDiv = document.querySelector('.note-wrapper')
-        console.log("displaying!")
-        console.log(app.data.notes)
-        for (let note of app.data.notes) {
-            noteDiv.innerHTML += `
-                <div class="past-notes data-id="note.id">
-                <h4>${note.title}</h4>
-                <p>${note.text}</p>
-
-                </div>`
+    const noteDiv = document.querySelector('.note-wrapper')
+    console.log("displaying!")
+    console.log(app.data.notes)
+    for (let note of app.data.notes) {
+        noteDiv.innerHTML += `
+            <div class="past-notes data-id="note.id">
+            <h4>${note.title}</h4>
+            <p>${note.text}</p>
+            ${app.tagsToHtml(note)}
+            </div>`
         }
     },
+
     "tagsToHtml": (note) => {
         let htmlArray = note.tags.map(tag => `<div class="tags">${tag}</div>`)
-        console.log(htmlArray)
+        return htmlArray.join('\n')
     },
     "main": () => {
         if (app.data.credentials.username) {
