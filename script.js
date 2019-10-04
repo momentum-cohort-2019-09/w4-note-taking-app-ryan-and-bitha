@@ -64,8 +64,8 @@ const app = {
             <h4>${note.title}</h4>
             <p>${note.text}</p>
             ${app.tagsToHtml(note)}
-            <button class="delete" type="button">Edit</button>
-            <button class="edit" type="button">Delete</button>
+            <button class="edit" type="button">Edit</button>
+            <button class="delete" type="button">Delete</button>
             </div>`
         }
     },
@@ -95,6 +95,14 @@ const app = {
             event.preventDefault()
             event.target.classList.add('hidden')
             app.showEditForm("new")
+        })
+        document.querySelector(".notes").addEventListener('click', function(event){
+            console.log("click")
+            if(event.target.matches(".edit")){
+                
+            } else if (event.target.matches(".delete")){
+                app.deleteNote(event.target.parentElement.dataset.id)
+            }
         })
     },
     "showEditForm": (type, title, content, tags) => {
