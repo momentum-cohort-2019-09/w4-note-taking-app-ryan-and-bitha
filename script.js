@@ -4,7 +4,8 @@ const app = {
             username: sessionStorage.username,
             password: sessionStorage.password
         },
-        "notes": []
+        "notes": [],
+        "currentEditId": ""
     },
     "basicAuthCreds": function (credentials) {
         return 'Basic ' + btoa(`${credentials.username}:${credentials.password}`)
@@ -38,7 +39,7 @@ const app = {
     },
 
     "getNotes": function () {
-        this.data.notes=[]
+        this.data.notes = []
         fetch('https://notes-api.glitch.me/api/notes', {
             headers: {
                 'Authorization': this.basicAuthCreds(this.data.credentials)
@@ -68,6 +69,38 @@ const app = {
             let loginData = new FormData(login)
             app.login(loginData.get('username'), loginData.get('password'))
         })
-    }
+        let form = document.querySelector(".note-form")
+        form.addEventListener('submit', function (event) {
+            let note = new FormData(form)
+            event.preventDefault()
+        })
+        document.querySelector(".new").addEventListener('click', function (event) {
+            event.preventDefault()
+            event.target.classList.add('hidden')
+            app.showEditForm("new")
+        })
+    },
+    "showEditForm": (type,title,content,tags) => {
+        document.querySelector(".note-form").innerHTML = `
+        <label for="title">Title</label>
+        <input id="title" class="title" name="title" value=${title?title:""}>
+        <label for="note-content">Note</label>
+        <textarea id="note-content" cols="50" rows="6" class="content" name="content" required
+            placeholder="Note Content">${content?content:""}</textarea>
+        <label for="tags">Tags</label>
+        <input id="tags" class="tags" name="tags" value='${tags?tags.join(", "):""}' placeholder="Put, Tags, Here">
+        <button type="submit" value="${type}">Post</button>
+        `
+    },
+    "putOrPost": (form) => {
+
+    },
+    "postNote": (form) => {
+
+    },
+    "putNote": (form) => {
+
+    },
+
 }
 app.main()

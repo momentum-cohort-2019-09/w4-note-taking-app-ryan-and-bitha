@@ -46,7 +46,7 @@ form {
 label {
 	display: block;
 }
-.creation div {
+.creation input, textarea {
 	margin-bottom: .5rem;
 }
 .past-notes {
@@ -54,7 +54,7 @@ label {
     height: 156px;
     margin:15px 15px 0;
 	text-align: center;
-	padding: 20px;
+	padding: 10px;
 	background-color: rgb(255, 248, 248);
 }
 .note-wrapper {
@@ -66,4 +66,11 @@ label {
 .past-notes{
     border:1px solid lightgrey;
     border-radius:5px;
+}
+a{
+	text-decoration: none;
+	color:blue;
+}
+button{
+	display:block;
 }
