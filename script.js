@@ -57,24 +57,7 @@ const app = {
 
                 }
             })
-<<<<<<< HEAD
-    }
-}
-
-app.getNotes()
-
-// console.log(data['notes'][0].text)
-        .then(response => response.json())
-        .then(data => {
-            for (let note of data.notes){
-                this.data.notes.push(note)
-            }
-            console.log(this.data.notes)
-        })
-    }
-=======
     },
->>>>>>> dfe751de32698e9fcd95e1736b96393b748dc453
     "main": () => {
         if (app.data.credentials.username) {
             app.getNotes()
@@ -97,15 +80,15 @@ app.getNotes()
             app.showEditForm("new")
         })
     },
-    "showEditForm": (type,title,content,tags) => {
+    "showEditForm": (type, title, content, tags) => {
         document.querySelector(".note-form").innerHTML = `
         <label for="title">Title</label>
-        <input id="title" class="title" name="title" value=${title?title:""}>
+        <input id="title" class="title" name="title" value=${title ? title : ""}>
         <label for="note-content">Note</label>
         <textarea id="note-content" cols="50" rows="6" class="content" name="content" required
-            placeholder="Note Content">${content?content:""}</textarea>
+            placeholder="Note Content">${content ? content : ""}</textarea>
         <label for="tags">Tags</label>
-        <input id="tags" class="tags" name="tags" value='${tags?tags.join(", "):""}' placeholder="Put, Tags, Here">
+        <input id="tags" class="tags" name="tags" value='${tags ? tags.join(", ") : ""}' placeholder="Put, Tags, Here">
         <button type="submit" value="${type}">Post</button>
         `
     },
