@@ -116,7 +116,11 @@ const app = {
             }
         },
         "postNote": (title, text, tags) => {
-
+            fetch('https://notes-api.glitch.me/api/notes', {
+                'method': 'POST',
+                'body':JSON.stringify({'title':title, 'text':text, 'tags':tags}),
+                'headers': {'Content-Type':'application/json'}
+            })
         },
         "putNote": (title, text, tags) => {
 
