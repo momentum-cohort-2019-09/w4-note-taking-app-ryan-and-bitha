@@ -44,24 +44,26 @@ const app = {
                 'Authorization': this.basicAuthCreds(this.data.credentials)
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            for (let note of data.notes) {
-                this.data.notes.push(note)
-            }
-            this.displayAllNotes()
+            .then(response => response.json())
+            .then(data => {
+                for (let note of data.notes) {
+                    this.data.notes.push(note)
+                }
+                this.displayAllNotes()
             })
-        },
+    },
     "displayAllNotes": () => {
-    const noteDiv = document.querySelector('.note-wrapper')
-    console.log("displaying!")
-    console.log(app.data.notes)
-    for (let note of app.data.notes) {
-        noteDiv.innerHTML += `
+        const noteDiv = document.querySelector('.note-wrapper')
+        console.log("displaying!")
+        console.log(app.data.notes)
+        for (let note of app.data.notes) {
+            noteDiv.innerHTML += `
             <div class="past-notes data-id="note.id">
-            <h4>${note.title}</h4>
+           <h4>${note.title}</h4>
             <p>${note.text}</p>
             ${app.tagsToHtml(note)}
+            <button class="delete" type="button">Edit</button>
+            <button class="edit" type="button">Delete</button>
             </div>`
         }
     },
@@ -86,15 +88,15 @@ const app = {
             let noteForm = new FormData(form)
             event.preventDefault()
             app.postNote(noteForm)
-            })
-            document.querySelector(".new").addEventListener('click', function (event) {
-                event.preventDefault()
-                event.target.classList.add('hidden')
-                app.showEditForm("new")
-            })
-        },
-        "showEditForm": (type, title, content, tags) => {
-            document.querySelector(".note-form").innerHTML = `
+        })
+        document.querySelector(".new").addEventListener('click', function (event) {
+            event.preventDefault()
+            event.target.classList.add('hidden')
+            app.showEditForm("new")
+        })
+    },
+    "showEditForm": (type, title, content, tags) => {
+        document.querySelector(".note-form").innerHTML = `
                 <label for="title">Title</label>
                 <input id="title" class="title" name="title" value=${title ? title : ""}>
                 <label for="note-content">Note</label>
@@ -102,25 +104,25 @@ const app = {
                     placeholder="Note Content">${content ? content : ""}</textarea>
                 <label for="tags">Tags</label>
                 <input id="tags" class="tags" name="tags" value='${tags ? tags.join(", ") : ""}' placeholder="Put, Tags, Here">
-                <button type="submit" name="button" value="${type}">Post</button>
+                <button class="submit-button" type="submit" name="button" value="${type}">Post</button>
                 `
-        },
-        "putOrPost": (noteForm) => {
-            let title = noteForm.get('title')
-            let text = noteForm.get('content')
-            let tags = noteForm.get('tags').split(',').map(tag => tag.trim())
-            if (noteForm.get('button') === "new") {
-                postNote(title, text, tags)
-            } else {
-                putNote(title, text, tags)
-            }
-        },
-        "postNote": (title, text, tags) => {
+    },
+    "putOrPost": (noteForm) => {
+        let title = noteForm.get('title')
+        let text = noteForm.get('content')
+        let tags = noteForm.get('tags').split(',').map(tag => tag.trim())
+        if (noteForm.get('button') === "new") {
+            postNote(title, text, tags)
+        } else {
+            putNote(title, text, tags)
+        }
+    },
+    "postNote": (title, text, tags) => {
 
-        },
-        "putNote": (title, text, tags) => {
+    },
+    "putNote": (title, text, tags) => {
 
-        },
+    },
 
 }
 app.main()
