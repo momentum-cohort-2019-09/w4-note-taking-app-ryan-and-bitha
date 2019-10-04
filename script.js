@@ -56,16 +56,14 @@ const app = {
                     noteDiv.innerHTML += `<div class="past-notes">
                     <h4>${note.title}</h4>
                     <p>${note.text}</p>
-
+                    ${this.tagsToHtml(note)}
                     </div>`
-                    this.tagsToHtml(note)
-
                 }
             })
     },
     "tagsToHtml": (note) => {
-        let htmlArray= note.tags.map(tag => `<div class="tags">${tag}</div>`)
-        console.log(htmlArray)
+        let htmlArray = note.tags.map(tag => `<div class="tags">${tag}</div>`)
+        return htmlArray.join('\n')
     },
     "main": () => {
         if (app.data.credentials.username) {
