@@ -29,7 +29,7 @@ form {
 	flex-direction: column;
 }
 .main-content {
-	max-width: 70vw;
+	max-width: 90vw;
 	flex: 1 1 0;
 	padding: 1rem 1rem 0;
 }
