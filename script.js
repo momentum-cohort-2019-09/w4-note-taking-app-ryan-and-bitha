@@ -5,7 +5,8 @@ const app = {
             password: sessionStorage.password
         },
         "notes": [],
-        "currentEditId": ""
+        "currentEditId": "",
+        "editType":null
     },
     "basicAuthCreds": function (credentials) {
         return 'Basic ' + btoa(`${credentials.username}:${credentials.password}`)
@@ -53,13 +54,14 @@ const app = {
             })
     },
     "displayAllNotes": () => {
-        const noteDiv = document.querySelector('.note-wrapper')
-        console.log("displaying!")
-        console.log(app.data.notes)
-        for (let note of app.data.notes) {
-            noteDiv.innerHTML += `
-            <div class="past-notes data-id="note.id">
-           <h4>${note.title}</h4>
+    const noteDiv = document.querySelector('.note-wrapper')
+    noteDiv.innerHTML=''
+    console.log("displaying!")
+    console.log(app.data.notes)
+    for (let note of app.data.notes) {
+        noteDiv.innerHTML += `
+            <div class="past-notes" data-id="${note._id}">
+            <h4>${note.title}</h4>
             <p>${note.text}</p>
             ${app.tagsToHtml(note)}
             <button class="delete" type="button">Edit</button>
@@ -87,7 +89,7 @@ const app = {
         form.addEventListener('submit', function (event) {
             let noteForm = new FormData(form)
             event.preventDefault()
-            app.postNote(noteForm)
+            app.putOrPost(noteForm)
         })
         document.querySelector(".new").addEventListener('click', function (event) {
             event.preventDefault()
@@ -96,29 +98,55 @@ const app = {
         })
     },
     "showEditForm": (type, title, content, tags) => {
+        app.editType = type
         document.querySelector(".note-form").innerHTML = `
-                <label for="title">Title</label>
-                <input id="title" class="title" name="title" value=${title ? title : ""}>
-                <label for="note-content">Note</label>
-                <textarea id="note-content" cols="50" rows="6" class="content" name="content" required
-                    placeholder="Note Content">${content ? content : ""}</textarea>
-                <label for="tags">Tags</label>
-                <input id="tags" class="tags" name="tags" value='${tags ? tags.join(", ") : ""}' placeholder="Put, Tags, Here">
-                <button class="submit-button" type="submit" name="button" value="${type}">Post</button>
-                `
+            <label for="title">Title</label>
+            <input id="title" class="title" name="title" value=${title ? title : ""}>
+            <label for="note-content">Note</label>
+            <textarea id="note-content" cols="50" rows="6" class="content" name="content" required
+                placeholder="Note Content">${content ? content : ""}</textarea>
+            <label for="tags">Tags</label>
+            <input id="tags" class="tags" name="tags" value='${tags ? tags.join(", ") : ""}' placeholder="Put, Tags, Here">
+            <button type="submit" name="button">Post</button>
+            `
     },
     "putOrPost": (noteForm) => {
         let title = noteForm.get('title')
         let text = noteForm.get('content')
         let tags = noteForm.get('tags').split(',').map(tag => tag.trim())
-        if (noteForm.get('button') === "new") {
-            postNote(title, text, tags)
+        console.log(text,title,tags)
+        if (app.editType === "new") {
+            app.postNote(title, text, tags)
         } else {
-            putNote(title, text, tags)
+            app.putNote(title, text, tags)
         }
     },
     "postNote": (title, text, tags) => {
-
+        fetch('https://notes-api.glitch.me/api/notes', {
+            'method': 'POST',
+            'body': JSON.stringify({'title':title, 'text':text, 'tags':tags}),
+            'headers': {
+                'Content-Type':'application/json',
+                'Authorization': app.basicAuthCreds(app.data.credentials)
+            }, 
+        })
+        .then(response =>{
+            console.log(response)
+            if(!response.ok){
+                throw "Something went wrong!"
+            } else {
+                return response.json()
+            }
+        })
+        .then(note => {
+            app.data.notes.push(note)
+            app.displayAllNotes()
+            document.querySelector("form").innerHTML = ""
+            document.querySelector(".new").classList.remove("hidden")
+        })
+        .catch(error =>{
+            alert(error)
+        })
     },
     "putNote": (title, text, tags) => {
 
