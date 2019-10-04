@@ -21,6 +21,7 @@ form {
 	margin: 0 auto;
 }
 .sidebar {
+    min-height:90vh;
 	max-width: 20vw;
 	background: lightblue;
 	flex: 1 1 0;
@@ -29,7 +30,8 @@ form {
 }
 .main-content {
 	max-width: 70vw;
-	flex: 1 1 0;
+    flex: 1 1 0;
+    padding:1rem 1rem 0;
 }
 .content {
 	resize: none;
@@ -49,18 +51,19 @@ label {
 }
 .past-notes {
 	width: 240px;
-	height: 156px;
-	margin-right: 20px;
-	margin-bottom: 30px;
-	border-radius: 15px;
+    height: 156px;
+    margin:15px 15px 0;
 	text-align: center;
 	padding: 20px;
 	background-color: rgb(255, 248, 248);
 }
-.notes {
+.note-wrapper {
 	display: flex;
-	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	padding-left: 20px;
+	padding:10px;
+}
+.past-notes{
+    border:1px solid lightgrey;
+    border-radius:5px;
 }
