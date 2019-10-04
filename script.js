@@ -68,7 +68,7 @@ app.getNotes()
             }
             console.log(this.data.notes)
         })
-    },
+    }
     "main": () => {
         if(app.data.credentials.username){
             app.getNotes()
