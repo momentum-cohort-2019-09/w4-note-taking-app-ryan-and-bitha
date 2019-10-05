@@ -5,12 +5,14 @@
 }
 body {
 	font-family: Helvetica, Arial, sans-serif;
+	background-image: url('IMG_0464.JPG');
+	
 }
 .header {
 	height: 10vh;
 	/* padding: 2rem 1rem; */
-	background: seagreen;
-	color: white;
+	background: rgb(70, 160, 109);
+	color: rgb(251, 251, 251);
 	padding: 20px;
 }
 form {
@@ -52,17 +54,20 @@ textarea {
 	margin-bottom: .5rem;
 }
 .past-notes {
-	width: 300px;
-	height: 200px;
-	margin: 15px 15px 0;
+	width: 250px;
+	height: 250px;
+	margin: 20px;
 	text-align: left;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: space-evenly;
 	padding: 10px;
-	background-color: rgb(255, 248, 248);
+	background-color: rgb(248, 248, 230);
+	box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+	transition: transform .2s;
 }
+
 .note-wrapper {
 	display: flex;
 	flex-wrap: wrap;
@@ -89,6 +94,9 @@ a {
     padding: 7px;    
 	width:30px;	
 }
+.past-notes:hover {
+	transform: scale(1.5);
+}
 .past-notes:hover .buttons{
 	display:block;
 }
@@ -106,6 +114,10 @@ a {
 	height: 30px;  
 	width: 30px;         
 	vertical-align: middle; 
+}
+.updated{
+	color:gray;
+	font-size: small;
 }
 .submit-button {
 	display: block;

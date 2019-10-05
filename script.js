@@ -62,12 +62,13 @@ const app = {
     for (let note of app.data.notes) {
         noteDiv.innerHTML += `
             <div class="past-notes" data-id="${note._id}">
-            <h4>${note.title}</h4>
+            <h3>${note.title}</h3>
             <p>${note.text}</p>
             ${app.tagsToHtml(note)}<br>
             <div class="buttons">
             <button class="edit" type="button"></button>
             <button class="delete" type="button"></button>
+            <p class="updated">Edited, ${moment(note.updated).format("ddd, hA")}</p>
             </div>
             </div>`
         }
