@@ -63,12 +63,12 @@ textarea {
 	padding: 10px;
 	background-color: rgb(255, 248, 248);
 }
-/* .note-wrapper {
+.note-wrapper {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	padding: 10px;
-} */
+}
 .past-notes {
 	border: 1px solid lightgrey;
 	border-radius: 5px;
@@ -78,11 +78,6 @@ a {
 	color: blue;
 }
 
-/* #buttons{
-	display: flex;
-	justify-content: flex-start;
-
-} */
 .delete {
 	background-image: url(icons8-trash-32.png); 
     background-color: transparent; 
@@ -91,13 +86,16 @@ a {
     border: none;          
     cursor: pointer;       
     height: 30px;          
-    padding-left: 16px;     
-	vertical-align: middle;
-	width:30px;
-	/* display: none; */
-	
+    padding: 7px;    
+	width:30px;	
 }
- 
+.past-notes:hover .buttons{
+	display:block;
+}
+.past-notes .buttons{
+	display: none;
+}
+
 .edit{
 	background-image: url(edit.png);
 	background-color: transparent; 
@@ -107,9 +105,7 @@ a {
     cursor: pointer;        
 	height: 30px;  
 	width: 30px;         
-    padding-left: 16px;     
 	vertical-align: middle; 
-	
 }
 .submit-button {
 	display: block;

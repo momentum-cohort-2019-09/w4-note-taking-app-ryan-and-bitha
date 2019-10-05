@@ -64,9 +64,11 @@ const app = {
             <div class="past-notes" data-id="${note._id}">
             <h4>${note.title}</h4>
             <p>${note.text}</p>
-            ${app.tagsToHtml(note)}
+            ${app.tagsToHtml(note)}<br>
+            <div class="buttons">
             <button class="edit" type="button"></button>
             <button class="delete" type="button"></button>
+            </div>
             </div>`
         }
     },
@@ -131,7 +133,7 @@ const app = {
                 placeholder="Note Content">${content ? content : ""}</textarea>
             <label for="tags">Tags</label>
             <input id="tags" class="tags" name="tags" value='${tags ? tags.join(", ") : ""}' placeholder="Put, Tags, Here">
-            <button type="submit" name="button">Post</button>
+            <button class="submit-button type="submit" name="button">Post</button>
             `
     },
     "putOrPost": (noteForm) => {
