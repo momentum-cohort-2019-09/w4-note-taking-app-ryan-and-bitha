@@ -53,6 +53,7 @@ const app = {
                 this.displayAllNotes()
             })
     },
+    
     "displayAllNotes": () => {
     const noteDiv = document.querySelector('.note-wrapper')
     noteDiv.innerHTML=''
@@ -64,8 +65,8 @@ const app = {
             <h4>${note.title}</h4>
             <p>${note.text}</p>
             ${app.tagsToHtml(note)}
-            <button class="edit" type="button">Edit</button>
-            <button class="delete" type="button">Delete</button>
+            <button class="edit" type="button"></button>
+            <button class="delete" type="button"></button>
             </div>`
         }
     },
@@ -74,6 +75,21 @@ const app = {
         let htmlArray = note.tags.map(tag => `<div class="tags">${tag}</div>`)
         return htmlArray.join('\n')
     },
+    "deleteNote": (noteId) => {
+        fetch(`https://notes-api.glitch.me/api/notes/${noteId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': app.basicAuthCreds(app.data.credentials)
+        }
+     }).then(response=> {
+         if( response.ok){
+             app.data.notes = app.data.notes.filter(note =>  note._id !== noteId)
+         app.displayAllNotes()
+            }
+     })
+
+},
+    
     "main": () => {
         if (app.data.credentials.username) {
             app.getNotes()

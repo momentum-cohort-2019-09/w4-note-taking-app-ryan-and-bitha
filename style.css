@@ -52,10 +52,10 @@ textarea {
 	margin-bottom: .5rem;
 }
 .past-notes {
-	width: 240px;
-	height: 156px;
+	width: 300px;
+	height: 200px;
 	margin: 15px 15px 0;
-	text-align: center;
+	text-align: left;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -63,12 +63,12 @@ textarea {
 	padding: 10px;
 	background-color: rgb(255, 248, 248);
 }
-.note-wrapper {
+/* .note-wrapper {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	padding: 10px;
-}
+} */
 .past-notes {
 	border: 1px solid lightgrey;
 	border-radius: 5px;
@@ -77,9 +77,40 @@ a {
 	text-decoration: none;
 	color: blue;
 }
-/* .delete.edit{
-	
+
+/* #buttons{
+	display: flex;
+	justify-content: flex-start;
+
 } */
+.delete {
+	background-image: url(icons8-trash-32.png); 
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-position: 0px 0px; 
+    border: none;          
+    cursor: pointer;       
+    height: 30px;          
+    padding-left: 16px;     
+	vertical-align: middle;
+	width:30px;
+	/* display: none; */
+	
+}
+ 
+.edit{
+	background-image: url(edit.png);
+	background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-position: 0px 0px;  
+    border: none;           
+    cursor: pointer;        
+	height: 30px;  
+	width: 30px;         
+    padding-left: 16px;     
+	vertical-align: middle; 
+	
+}
 .submit-button {
 	display: block;
 	background-color: seagreen;
@@ -111,7 +142,7 @@ a {
 .tags {
 	background-color: bisque;
 	border-radius: 5px;
-	width: 60px;
+	width: 80px;
 }
 #title {
 	width: 300px;
