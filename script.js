@@ -1,3 +1,5 @@
+var moment = require('moment')
+
 const app = {
     "data": {
         "credentials": {
@@ -64,18 +66,21 @@ const app = {
             <div class="past-notes" data-id="${note._id}">
             <h3>${note.title}</h3>
             <p>${note.text}</p>
-            ${app.tagsToHtml(note)}<br>
+            <div class="tags">
+            ${app.tagsToHtml(note)}
+            </div>
             <div class="buttons">
             <button class="edit" type="button"></button>
             <button class="delete" type="button"></button>
-            <p class="updated">Edited, ${moment(note.updated).format("ddd, hA")}</p>
+            <p class="updated">Last edited: ${moment(note.updated).format("ddd MMM DD YYYY, h:mm A")}</p>
             </div>
             </div>`
         }
     },
 
     "tagsToHtml": (note) => {
-        let htmlArray = note.tags.map(tag => `<div class="tags">${tag}</div>`)
+        console.log(note.tags)
+        let htmlArray = note.tags.map(tag => `<div class="tag">${tag}</div>`)
         return htmlArray.join('\n')
     },
     "deleteNote": (noteId) => {
@@ -120,7 +125,7 @@ const app = {
             if(event.target.matches(".edit")){
                 
             } else if (event.target.matches(".delete")){
-                app.deleteNote(event.target.parentElement.dataset.id)
+                app.deleteNote(event.target.parentElement.parentElement.dataset.id)
             }
         })
     },
@@ -133,14 +138,14 @@ const app = {
             <textarea id="note-content" cols="50" rows="6" class="content" name="content" required
                 placeholder="Note Content">${content ? content : ""}</textarea>
             <label for="tags">Tags</label>
-            <input id="tags" class="tags" name="tags" value='${tags ? tags.join(", ") : ""}' placeholder="Put, Tags, Here">
+            <input id="tags-input" class="tags-input" name="tags" value='${tags ? tags.join(", ") : ""}' placeholder="Put, Tags, Here">
             <button class="submit-button type="submit" name="button">Post</button>
             `
     },
     "putOrPost": (noteForm) => {
         let title = noteForm.get('title')
         let text = noteForm.get('content')
-        let tags = noteForm.get('tags').split(',').map(tag => tag.trim())
+        let tags = noteForm.get('tags').split(',').map(tag => tag.trim()).filter(tag => tag !== "")
         console.log(text,title,tags)
         if (app.editType === "new") {
             app.postNote(title, text, tags)
