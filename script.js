@@ -35,7 +35,6 @@ const app = {
                 }
             })
     },
-
     "render": function () {
         document.querySelector(".login-container").classList.add('hidden')
         document.querySelector(".main-wrap").classList.remove('hidden')
@@ -55,7 +54,6 @@ const app = {
                 this.displayNotes(app.data.notes)
             })
     },
-
     "displayNotes": (notes) => {
         const noteDiv = document.querySelector('.note-wrapper')
         noteDiv.innerHTML = ''
@@ -75,13 +73,12 @@ const app = {
             </div>`
         }
     },
-
     "tagsToHtml": (note) => {
         let htmlArray = note.tags.map(tag => `<div class="tag">${tag}</div>`)
         return htmlArray.join('\n')
     },
     "deleteNote": (noteId) => {
-        document.querySelector(".note-form").innerHTML=""
+        document.querySelector(".note-form").innerHTML = ""
         document.querySelector(".new").classList.remove("hidden")
         fetch(`https://notes-api.glitch.me/api/notes/${noteId}`, {
             method: 'DELETE',
@@ -94,9 +91,7 @@ const app = {
                 app.displayNotes(app.data.notes)
             }
         })
-
     },
-
     "main": () => {
         if (app.data.credentials.username) {
             app.getNotes()
@@ -120,11 +115,11 @@ const app = {
             app.showEditForm("new")
         })
         document.querySelector(".notes").addEventListener('click', function (event) {
-            if(event.target.matches(".edit")){
+            if (event.target.matches(".edit")) {
                 app.getNoteIndexAndEdit(event.target.parentElement.parentElement.dataset.id)
-            } else if (event.target.matches(".delete")){
+            } else if (event.target.matches(".delete")) {
                 app.deleteNote(event.target.parentElement.parentElement.dataset.id)
-            } else if (event.target.matches(".tag")){
+            } else if (event.target.matches(".tag")) {
                 app.searchNotes(event.target.textContent)
             }
         })
@@ -161,60 +156,60 @@ const app = {
                 'Authorization': app.basicAuthCreds(app.data.credentials)
             }
         })
-        .then(response =>{
-            if(!response.ok){
-                throw "Something went wrong!"
-            } else {
-                return response.json()
-            }
-        })
-        .then(note => {
-            app.data.notes.push(note)
-            app.displayNotes(app.data.notes)
-            document.querySelector(".note-form").innerHTML = ""
-            document.querySelector(".new").classList.remove("hidden")
-        })
-        .catch(error =>{
-            alert(error)
-        })
+            .then(response => {
+                if (!response.ok) {
+                    throw "Something went wrong!"
+                } else {
+                    return response.json()
+                }
+            })
+            .then(note => {
+                app.data.notes.push(note)
+                app.displayNotes(app.data.notes)
+                document.querySelector(".note-form").innerHTML = ""
+                document.querySelector(".new").classList.remove("hidden")
+            })
+            .catch(error => {
+                alert(error)
+            })
     },
     "putNote": (title, text, tags) => {
         fetch(`https://notes-api.glitch.me/api/notes/${app.data.currentEditId}`, {
             'method': 'PUT',
-            'body': JSON.stringify({'title':title, 'text':text, 'tags':tags}),
+            'body': JSON.stringify({ 'title': title, 'text': text, 'tags': tags }),
             'headers': {
-                'Content-Type':'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': app.basicAuthCreds(app.data.credentials)
-            } 
-        })
-        .then(response =>{
-            if(!response.ok){
-                throw "Something went wrong!"
-            } else {
-                return response.json()
             }
         })
-        .then (note =>{
-            app.data.notes.splice(app.data.editIndex, 1, note)
-            app.displayNotes(app.data.notes)
-            document.querySelector(".note-form").innerHTML = ""
-            document.querySelector(".new").classList.remove("hidden")
-        })
-        .catch(error =>{
-            alert(error)
-        })
+            .then(response => {
+                if (!response.ok) {
+                    throw "Something went wrong!"
+                } else {
+                    return response.json()
+                }
+            })
+            .then(note => {
+                app.data.notes.splice(app.data.editIndex, 1, note)
+                app.displayNotes(app.data.notes)
+                document.querySelector(".note-form").innerHTML = ""
+                document.querySelector(".new").classList.remove("hidden")
+            })
+            .catch(error => {
+                alert(error)
+            })
     },
-    "getNoteIndexAndEdit" : (id) => {
+    "getNoteIndexAndEdit": (id) => {
         app.data.currentEditId = id
-        for (let i = 0; i<app.data.notes.length; i++){
-            if(app.data.notes[i]._id === id){
+        for (let i = 0; i < app.data.notes.length; i++) {
+            if (app.data.notes[i]._id === id) {
                 app.data.editIndex = i
                 let note = app.data.notes[i]
                 return app.showEditForm("edit", note.title, note.text, note.tags)
             }
         }
     },
-    "searchNotes" : tag => {
+    "searchNotes": tag => {
         console.log(tag)
         let searchedNotes = app.data.notes.filter(note => note.tags.includes(tag))
         return app.displayNotes(searchedNotes)
