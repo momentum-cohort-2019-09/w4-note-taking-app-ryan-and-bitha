@@ -121,9 +121,11 @@ const app = {
         })
         document.querySelector(".notes").addEventListener('click', function (event) {
             if(event.target.matches(".edit")){
-                app.getNoteIndex(event.target.parentElement.parentElement.dataset.id)
+                app.getNoteIndexAndEdit(event.target.parentElement.parentElement.dataset.id)
             } else if (event.target.matches(".delete")){
                 app.deleteNote(event.target.parentElement.parentElement.dataset.id)
+            } else if (event.target.matches(".tag")){
+                app.searchNotes(event.target.textContent)
             }
         })
     },
@@ -202,7 +204,7 @@ const app = {
             alert(error)
         })
     },
-    "getNoteIndex" : (id) => {
+    "getNoteIndexAndEdit" : (id) => {
         app.data.currentEditId = id
         for (let i = 0; i<app.data.notes.length; i++){
             if(app.data.notes[i]._id === id){
@@ -211,6 +213,11 @@ const app = {
                 return app.showEditForm("edit", note.title, note.text, note.tags)
             }
         }
+    },
+    "searchNotes" : tag => {
+        console.log(tag)
+        let searchedNotes = app.data.notes.filter(note => note.tags.includes(tag))
+        return app.displayNotes(searchedNotes)
     }
 }
 app.main()
