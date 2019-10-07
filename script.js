@@ -8,7 +8,7 @@ const app = {
         },
         "notes": [],
         "currentEditId": "",
-        "editType":null
+        "editType": null
     },
     "basicAuthCreds": function (credentials) {
         return 'Basic ' + btoa(`${credentials.username}:${credentials.password}`)
@@ -55,14 +55,12 @@ const app = {
                 this.displayAllNotes()
             })
     },
-    
+
     "displayAllNotes": () => {
-    const noteDiv = document.querySelector('.note-wrapper')
-    noteDiv.innerHTML=''
-    console.log("displaying!")
-    console.log(app.data.notes)
-    for (let note of app.data.notes) {
-        noteDiv.innerHTML += `
+        const noteDiv = document.querySelector('.note-wrapper')
+        noteDiv.innerHTML = ''
+        for (let note of app.data.notes) {
+            noteDiv.innerHTML += `
             <div class="past-notes" data-id="${note._id}">
             <h3>${note.title}</h3>
             <p>${note.text}</p>
@@ -79,25 +77,26 @@ const app = {
     },
 
     "tagsToHtml": (note) => {
-        console.log(note.tags)
         let htmlArray = note.tags.map(tag => `<div class="tag">${tag}</div>`)
         return htmlArray.join('\n')
     },
     "deleteNote": (noteId) => {
+        document.querySelector(".note-form").innerHTML=""
+        document.querySelector(".new").classList.remove("hidden")
         fetch(`https://notes-api.glitch.me/api/notes/${noteId}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': app.basicAuthCreds(app.data.credentials)
-        }
-     }).then(response=> {
-         if( response.ok){
-             app.data.notes = app.data.notes.filter(note =>  note._id !== noteId)
-         app.displayAllNotes()
+            method: 'DELETE',
+            headers: {
+                'Authorization': app.basicAuthCreds(app.data.credentials)
             }
-     })
+        }).then(response => {
+            if (response.ok) {
+                app.data.notes = app.data.notes.filter(note => note._id !== noteId)
+                app.displayAllNotes()
+            }
+        })
 
-},
-    
+    },
+
     "main": () => {
         if (app.data.credentials.username) {
             app.getNotes()
@@ -120,8 +119,7 @@ const app = {
             event.target.classList.add('hidden')
             app.showEditForm("new")
         })
-        document.querySelector(".notes").addEventListener('click', function(event){
-            console.log("click")
+        document.querySelector(".notes").addEventListener('click', function (event) {
             if(event.target.matches(".edit")){
                 app.getNoteIndex(event.target.parentElement.parentElement.dataset.id)
             } else if (event.target.matches(".delete")){
@@ -131,7 +129,6 @@ const app = {
     },
     "showEditForm": (type, title, content, tags) => {
         app.data.editType = type
-        console.log(app.data)
         document.querySelector(".note-form").innerHTML = `
             <label for="title">Title</label>
             <input id="title" class="title" name="title" value=${title ? title : ""}>
@@ -147,8 +144,7 @@ const app = {
         let title = noteForm.get('title')
         let text = noteForm.get('content')
         let tags = noteForm.get('tags').split(',').map(tag => tag.trim()).filter(tag => tag !== "")
-        console.log(text,title,tags)
-        if (app.editType === "new") {
+        if (app.data.editType === "new") {
             app.postNote(title, text, tags)
         } else {
             app.putNote(title, text, tags)
@@ -157,14 +153,13 @@ const app = {
     "postNote": (title, text, tags) => {
         fetch('https://notes-api.glitch.me/api/notes', {
             'method': 'POST',
-            'body': JSON.stringify({'title':title, 'text':text, 'tags':tags}),
+            'body': JSON.stringify({ 'title': title, 'text': text, 'tags': tags }),
             'headers': {
-                'Content-Type':'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': app.basicAuthCreds(app.data.credentials)
             }
         })
         .then(response =>{
-            console.log(response)
             if(!response.ok){
                 throw "Something went wrong!"
             } else {
@@ -213,7 +208,6 @@ const app = {
             if(app.data.notes[i]._id === id){
                 app.data.editIndex = i
                 let note = app.data.notes[i]
-                console.log(note)
                 return app.showEditForm("edit", note.title, note.text, note.tags)
             }
         }
