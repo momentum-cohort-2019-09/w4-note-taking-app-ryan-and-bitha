@@ -52,14 +52,14 @@ const app = {
                 for (let note of data.notes) {
                     this.data.notes.push(note)
                 }
-                this.displayAllNotes()
+                this.displayNotes(app.data.notes)
             })
     },
 
-    "displayAllNotes": () => {
+    "displayNotes": (notes) => {
         const noteDiv = document.querySelector('.note-wrapper')
         noteDiv.innerHTML = ''
-        for (let note of app.data.notes) {
+        for (let note of notes) {
             noteDiv.innerHTML += `
             <div class="past-notes" data-id="${note._id}">
             <h3>${note.title}</h3>
@@ -91,7 +91,7 @@ const app = {
         }).then(response => {
             if (response.ok) {
                 app.data.notes = app.data.notes.filter(note => note._id !== noteId)
-                app.displayAllNotes()
+                app.displayNotes(app.data.notes)
             }
         })
 
@@ -168,7 +168,7 @@ const app = {
         })
         .then(note => {
             app.data.notes.push(note)
-            app.displayAllNotes()
+            app.displayNotes(app.data.notes)
             document.querySelector(".note-form").innerHTML = ""
             document.querySelector(".new").classList.remove("hidden")
         })
@@ -194,7 +194,7 @@ const app = {
         })
         .then (note =>{
             app.data.notes.splice(app.data.editIndex, 1, note)
-            app.displayAllNotes()
+            app.displayNotes(app.data.notes)
             document.querySelector(".note-form").innerHTML = ""
             document.querySelector(".new").classList.remove("hidden")
         })
