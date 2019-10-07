@@ -123,14 +123,15 @@ const app = {
         document.querySelector(".notes").addEventListener('click', function(event){
             console.log("click")
             if(event.target.matches(".edit")){
-                
+                app.getNoteIndex(event.target.parentElement.parentElement.dataset.id)
             } else if (event.target.matches(".delete")){
                 app.deleteNote(event.target.parentElement.parentElement.dataset.id)
             }
         })
     },
     "showEditForm": (type, title, content, tags) => {
-        app.editType = type
+        app.data.editType = type
+        console.log(app.data)
         document.querySelector(".note-form").innerHTML = `
             <label for="title">Title</label>
             <input id="title" class="title" name="title" value=${title ? title : ""}>
@@ -160,7 +161,7 @@ const app = {
             'headers': {
                 'Content-Type':'application/json',
                 'Authorization': app.basicAuthCreds(app.data.credentials)
-            }, 
+            }
         })
         .then(response =>{
             console.log(response)
@@ -173,7 +174,7 @@ const app = {
         .then(note => {
             app.data.notes.push(note)
             app.displayAllNotes()
-            document.querySelector("form").innerHTML = ""
+            document.querySelector(".note-form").innerHTML = ""
             document.querySelector(".new").classList.remove("hidden")
         })
         .catch(error =>{
@@ -181,8 +182,41 @@ const app = {
         })
     },
     "putNote": (title, text, tags) => {
-
+        fetch(`https://notes-api.glitch.me/api/notes/${app.data.currentEditId}`, {
+            'method': 'PUT',
+            'body': JSON.stringify({'title':title, 'text':text, 'tags':tags}),
+            'headers': {
+                'Content-Type':'application/json',
+                'Authorization': app.basicAuthCreds(app.data.credentials)
+            } 
+        })
+        .then(response =>{
+            if(!response.ok){
+                throw "Something went wrong!"
+            } else {
+                return response.json()
+            }
+        })
+        .then (note =>{
+            app.data.notes.splice(app.data.editIndex, 1, note)
+            app.displayAllNotes()
+            document.querySelector(".note-form").innerHTML = ""
+            document.querySelector(".new").classList.remove("hidden")
+        })
+        .catch(error =>{
+            alert(error)
+        })
     },
-
+    "getNoteIndex" : (id) => {
+        app.data.currentEditId = id
+        for (let i = 0; i<app.data.notes.length; i++){
+            if(app.data.notes[i]._id === id){
+                app.data.editIndex = i
+                let note = app.data.notes[i]
+                console.log(note)
+                return app.showEditForm("edit", note.title, note.text, note.tags)
+            }
+        }
+    }
 }
 app.main()
